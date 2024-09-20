@@ -1,0 +1,56 @@
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.rsuser
+*.suo
+
+# Ignore Visual Studio and JetBrains Rider specific folders
+.vscode/
+.idea/
+.vs/
+
+# Ignore build logs
+*.log
+
+# Ignore NuGet packages
+packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+
+# Ignore local application settings
+appsettings.json
+appsettings.*.json
+
+# Ignore EF Core migrations folder
+Migrations/
+
+# Ignore sensitive data for database connections
+secrets.json
+
+# Ignore compiled assemblies
+*.dll
+*.exe
+*.pdb
+
+# Ignore test results
+TestResults/
+*.trx
+*.coverage
+
+# Ignore files from code analysis
+*.ruleset
+.analyzers/
+
+# Ignore Rider folders
+.idea/
+
+# Ignore resharper cache
+_ReSharper.Caches/
+
+# Ignore backup and temporary files
+*.bak
+*.tmp
