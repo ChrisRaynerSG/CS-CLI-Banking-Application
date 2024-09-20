@@ -32,7 +32,7 @@ public class ProgramController
             else if (response.ToLower() == "r")
             {
                 RegisterService register = new RegisterService();
-                register.Register();
+                response = register.Register();
                 //todo registration logic
             }
         }
