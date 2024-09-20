@@ -7,12 +7,12 @@ public static class UserValidation
 {
     public static bool ValidateName(string name)
     {
-        return Regex.IsMatch(name, @"^[a-zA-Z][a-zA-Z-]*$");
+        return Regex.IsMatch(name, "^[a-zA-Z][a-zA-Z-]*$");
     }
 
     public static bool ValidateEmail(String email)
     {
-        return false;
+        return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
     }
 
     public static bool ValidatePassword(String password)
