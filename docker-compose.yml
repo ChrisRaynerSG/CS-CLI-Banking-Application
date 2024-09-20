@@ -1,0 +1,6 @@
+﻿services:
+  bankingappdotnet:
+    image: bankingappdotnet
+    build:
+      context: .
+      dockerfile: BankingAppDotNet/Dockerfile
