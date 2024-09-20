@@ -1,27 +1,18 @@
-﻿using BankingAppDotNet.user_interface;
+﻿using BankingAppDotNet.core;
+using BankingAppDotNet.user_interface;
 
 namespace BankingAppDotNet;
 
 class Program
 {
+    public static bool IsRunning = true;
+    
     public static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
-        Console.WriteLine(UserInterfaceComponents.TopLine + "\n" + UserInterfaceComponents.AppName);
-        for (int i = 0; i < 10; i++)
+        while(IsRunning) 
         {
-            if (i == 6)
-            {
-                Console.WriteLine(UserInterfaceComponents.GetMessageString("Hello world! Again!"));
-            }
-            else
-            {
-                Console.WriteLine(UserInterfaceComponents.MiddleLine);
-            }
+            ProgramController programController = new ProgramController();
+            programController.RunApplication();
         }
-        Console.WriteLine(UserInterfaceComponents.BottomLine);
-        
-        
-        
     }
 }
