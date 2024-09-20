@@ -12,7 +12,7 @@ public class ProgramController
         ui = new ConsoleScreen();
     }
 
-    public void RunApplication()
+    public bool RunApplication()
     {
         LoginService login = new LoginService();
         
@@ -27,16 +27,28 @@ public class ProgramController
                 if (login.Login() == "success")
                 {
                     response = "success";
-                    break;
                 }
             }
-            Console.Write("Selection:");
-            response = Console.ReadLine();
-            
+            else if (response.ToLower() == "r")
+            {
+                //todo registration logic
+            }
         }
         if (response.ToLower() == "q")
         {
-            Program.IsRunning = false;
+            return false;
         }
+        ui.PrintDisplay("Please select one of the following options", "View Accounts (A)", "View Cards (C)", "Make a transaction (T)", "Update Information (U)", "Quit application (Q)");
+        Console.Write("Selection: ");
+        response = Console.ReadLine();
+        while (response.ToLower() != "q")
+        {
+            //todo other things
+        }
+        if (response.ToLower() == "q")
+        {
+            return false;
+        }
+        return true;
     }
 }

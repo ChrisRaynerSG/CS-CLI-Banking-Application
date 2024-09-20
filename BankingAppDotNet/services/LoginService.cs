@@ -29,6 +29,7 @@ public class LoginService
         
         while (!ValidateCredentials())
         {
+            ui.PrintDisplay("Invalid credentials");
             Console.Write("Try again? (Y/N) ");
             string selection = Console.ReadLine();
             while (selection.ToLower() != "y" && selection.ToLower() != "n")
@@ -40,6 +41,11 @@ public class LoginService
 
             if (selection.ToLower() == "y")
             {
+                ui.PrintDisplay("Please enter your credentials");
+                Console.Write("Email: ");
+                email = Console.ReadLine();
+                Console.Write("Password: ");
+                password = Console.ReadLine();
                 ValidateCredentials();
             }
             else
@@ -47,7 +53,6 @@ public class LoginService
                 return "return";
             }
         }
-
         return "success";
     }
 
@@ -59,11 +64,6 @@ public class LoginService
         {
             if (!reader.HasRows)
             {
-                ui.PrintDisplay($"{email} is not registered.","Please try again, or register an account");
-                Console.Write("Enter email: ");
-                email = Console.ReadLine();
-                Console.Write("Enter password: ");
-                password = Console.ReadLine();
                 return false;
             }
             while (reader.Read())
@@ -71,11 +71,9 @@ public class LoginService
                 if (reader.GetString("password") == password)
                 {
                     ui.PrintDisplay("Login successful!", "Welcome " + reader.GetString("first_name") + " " + reader.GetString("last_name") + "!");
+                    Thread.Sleep(3000);
                     return true;
                 }
-                ui.PrintDisplay("Password does not match");
-                Console.Write("Enter password: ");
-                password = Console.ReadLine();
                 return false;
             }
         }

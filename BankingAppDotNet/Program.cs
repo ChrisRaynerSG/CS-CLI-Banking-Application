@@ -12,7 +12,7 @@ class Program
         while(IsRunning) 
         {
             ProgramController programController = new ProgramController();
-            programController.RunApplication();
+            IsRunning = programController.RunApplication();
         }
     }
 }
