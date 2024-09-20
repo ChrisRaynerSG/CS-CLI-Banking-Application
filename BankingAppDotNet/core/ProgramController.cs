@@ -17,17 +17,26 @@ public class ProgramController
         LoginService login = new LoginService();
         
         string response = "n";
-        while (response.ToLower() != "q")
+        while (response.ToLower() != "q" && response != "success")
         {
             ui.PrintDisplay("Please select an option from the list below:", "Login (L)", "Register (R)", "Quit application (Q)");
-            Console.WriteLine("Selection: ");
-            login.Login("chrisray2712@gmail.com", "Password@1");
+            Console.Write("Selection: ");
+            response = Console.ReadLine();
+            if (response.ToLower() == "l")
+            {
+                if (login.Login() == "success")
+                {
+                    response = "success";
+                    break;
+                }
+            }
+            Console.Write("Selection:");
             response = Console.ReadLine();
             
         }
-        Program.IsRunning = false;
+        if (response.ToLower() == "q")
+        {
+            Program.IsRunning = false;
+        }
     }
-    
-    
-    
 }
