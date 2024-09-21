@@ -1,19 +1,16 @@
-﻿using BankingAppDotNet.database_management;
-using BankingAppDotNet.services;
-using BankingAppDotNet.user_interface;
+﻿using BankingAppDotNet.dtos;
 
 namespace BankingAppDotNet.core;
 
 public class ProgramController
 {
-    
+    public static UserDto user;
     private ProgramLogic pl;
     
     public ProgramController()
     {
         pl = new ProgramLogic();
     }
-
     public bool RunApplication()
     {
         if (pl.doDatabaseSetupPath() == false)
@@ -23,24 +20,13 @@ public class ProgramController
 
         if (pl.doWelcomeScreenPath() == false)
         {
-            return false;
+            return false; //make welcomeScreenPath return userDto? If empty return false?
         }
 
-        if (pl.doLoggedInPath() == false)
+        if (pl.doLoggedInPath(user) == false)
         {
             return false;
         } 
-        // ui.PrintDisplay("Please select one of the following options", "View Accounts (A)", "View Cards (C)", "Make a transaction (T)", "Update Information (U)", "Quit application (Q)");
-        // Console.Write("Selection: ");
-        // response = Console.ReadLine();
-        // while (response.ToLower() != "q")
-        // {
-        //     //todo other things
-        // }
-        // if (response.ToLower() == "q")
-        // {
-        //     return false;
-        // }
         return false;
     }
 }

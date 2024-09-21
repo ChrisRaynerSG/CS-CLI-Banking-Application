@@ -1,4 +1,6 @@
-﻿namespace BankingAppDotNet.core;
+﻿using BankingAppDotNet.dtos;
+
+namespace BankingAppDotNet.core;
 
 public class ProgramLogic
 {
@@ -24,16 +26,8 @@ public class ProgramLogic
         return welcomeScreenLogic.doWelcomeScreenPath();
     }
 
-    public bool doLoggedInPath()
+    public bool doLoggedInPath(UserDto user)
     {
-        // return loggedInScreenLogic.doLoggedInScreenPath();
-        // todo paths for different outcomes on the logged in screen (view account, view cards, make transaction, update information, quit)
-        // return loggedInScreenLogic.doLoggedInPath();
-        // switch (selectedPath)
-        // { 
-        //     case
-        //     default: return false;
-        // }
-        return false;
+        return loggedInScreenLogic.doLoggedInScreenPath(user);
     }
 }

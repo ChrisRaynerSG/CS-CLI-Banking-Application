@@ -1,4 +1,6 @@
-﻿using BankingAppDotNet.database_management;
+﻿using BankingAppDotNet.core;
+using BankingAppDotNet.database_management;
+using BankingAppDotNet.dtos;
 using BankingAppDotNet.user_interface;
 using MySql.Data.MySqlClient;
 
@@ -72,6 +74,12 @@ public class LoginService
             {
                 if (reader.GetString("password") == password)
                 {
+                    ProgramController.user = new UserDto(reader.GetString("first_name"),
+                        reader.GetString("last_name"), 
+                        reader.GetString("email"),
+                        reader.GetString("password"),
+                        DateOnly.Parse(reader.GetString("date_of_birth")));
+                    
                     ui.PrintDisplay("Login successful!", "Welcome " + reader.GetString("first_name") + " " + reader.GetString("last_name") + "!");
                     Thread.Sleep(3000);
                     return true;

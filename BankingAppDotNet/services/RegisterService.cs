@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using BankingAppDotNet.core;
 using BankingAppDotNet.database_management;
 using BankingAppDotNet.dtos;
 using BankingAppDotNet.user_interface;
@@ -174,6 +175,7 @@ public class RegisterService
             {
                 registerOutcome = "registered";
                 RegisterUserInDatabase(dateOfBirth);
+                ProgramController.user = user;
                 return registerOutcome;
             }
         }
