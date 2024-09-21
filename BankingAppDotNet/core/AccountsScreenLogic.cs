@@ -24,6 +24,15 @@ public class AccountsScreenLogic : ConsoleScreen
         {
             PrintDisplay($"Welcome {ProgramController.loggedInUser.FirstName} {ProgramController.loggedInUser.LastName}","You currently have no active accounts with us.","Set up new account (S)", "Go back (B)");
             string userInput = Console.ReadKey().ToString().ToLower();
+            while (!userInput.ToLower().Equals("b") && !userInput.ToLower().Equals("s"))
+            {
+                userInput = Console.ReadKey().ToString().ToLower();
+            }
+
+            if (!userInput.Equals("s"))
+            {
+                //todo create new account
+            }
         }
     }
 }

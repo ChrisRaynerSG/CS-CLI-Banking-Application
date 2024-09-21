@@ -27,7 +27,7 @@ public class AccountService
 
     public ArrayList GetAllAccounts(UserDto user)
     {
-        ArrayList accounts = new ArrayList();
+        var accounts = new ArrayList();
         databaseConnection.OpenConnection();
         MySqlCommand command = new MySqlCommand($"SELECT account_id, account_number,banks.bank_code, account_types.account_type_name, balance FROM accounts JOIN account_types on accounts.account_type_id = account_types.account_type_id JOIN banks ON accounts.bank_id = banks.bank_id WHERE user_id = {user.Id}", databaseConnection.GetConnection());
         using (MySqlDataReader reader = command.ExecuteReader())
@@ -40,6 +40,22 @@ public class AccountService
         }
         databaseConnection.CloseConnection();
         return accounts;
+    }
+
+    public ArrayList GetAllBanks()
+    {
+        var banks = new ArrayList();
+        databaseConnection.OpenConnection();
+        MySqlCommand command = new MySqlCommand("SELECT * FROM banks", databaseConnection.GetConnection());
+        using (MySqlDataReader reader = command.ExecuteReader())
+        {
+            while (reader.Read())
+            {
+                BankDto bank = new BankDto(reader.GetInt32("bank_id"), reader.GetString("bank_name"), reader.GetString("bank_code"), reader.GetString("address1"),reader.GetString("address2"), reader.GetString("address3"), reader.GetString("city"));
+                banks.Add(bank);
+            }
+        }
+        return banks;
     }
 
     public void CreateNewAccount(UserDto user, int bankId, int accountTypeId)
