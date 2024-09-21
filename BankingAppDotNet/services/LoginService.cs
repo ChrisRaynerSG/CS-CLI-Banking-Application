@@ -74,11 +74,15 @@ public class LoginService
             {
                 if (reader.GetString("password") == password)
                 {
+
+                    DateTime date = reader.GetDateTime("date_of_birth");
+                    string dateString = date.ToString("yyyy-MM-dd");
+                    
                     ProgramController.user = new UserDto(reader.GetInt32("user_id"),reader.GetString("first_name"),
                         reader.GetString("last_name"), 
                         reader.GetString("email"),
                         reader.GetString("password"),
-                        reader.GetString("date_of_birth"));
+                        dateString);
                     
                     ui.PrintDisplay("Login successful!", "Welcome " + reader.GetString("first_name") + " " + reader.GetString("last_name") + "!");
                     Thread.Sleep(3000);

@@ -184,7 +184,7 @@ public class RegisterService
     {
         ui.PrintDisplay("Please make sure the following details are correct", $"First name: {user.FirstName}",
             $"Last name: {user.LastName}", $"Email: {user.Email}", $"Password: {user.Password}",
-            $"Date of birth: {user.BirthDate.ToString()}");
+            $"Date of birth: {user.BirthDate}");
     }
 
     private void RegistrationPrintPassword()
@@ -264,10 +264,6 @@ public class RegisterService
                 registeredUser = new UserDto(reader.GetInt32("user_id"), reader.GetString("first_name"), reader.GetString("last_name"), reader.GetString("email"), reader.GetString("password"), reader.GetString("date_of_birth"));
             }
         }
-
         return registeredUser;
     }
-
-    //todo firstName, lastName, email, password, DoB
-    
 }
