@@ -4,11 +4,12 @@ using MySql.Data.MySqlClient;
 public class DatabaseConnection
 {
     private MySqlConnection connection { get; set; }
-    const string ConnectionString = "Server=localhost;Port=3306;Database=banking_app;User ID=root;Password=root;";
+    private string ConnectionString;
 
     
     public DatabaseConnection()
     {
+        ConnectionString = DatabaseConfigSetup.GetConnectionString();
         connection = new MySqlConnection(ConnectionString);
         
     }

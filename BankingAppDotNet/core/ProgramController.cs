@@ -17,6 +17,8 @@ public class ProgramController
         
         //todo rewrite these as separate methods with return types to allow for easier navigation through the application
 
+        // handle connection to database 
+        
         // if (WelcomeScreen() == "success")
         // {
         //     
@@ -40,14 +42,15 @@ public class ProgramController
                 {
                     response = "success";
                     //todo store logged in user in memory
+                    //todo login to return a UserDto
                 }
             }
             else if (response.ToLower() == "r")
             {
                 RegisterService register = new RegisterService();
                 response = register.Register();
-                //todo registration logic
                 //todo store newly registered user in memory
+                //todo register to return a UserDto
             }
         }
         if (response.ToLower() == "q")
@@ -68,3 +71,15 @@ public class ProgramController
         return true;
     }
 }
+
+//todo program flow 
+/*
+ * Connect to database with user provided credentials
+ * Welcome screen with options to Login or Register
+ * Logged in screen 
+ *
+ *
+ *
+ *
+ *
+ * */
