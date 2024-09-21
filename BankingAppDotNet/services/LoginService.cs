@@ -74,7 +74,7 @@ public class LoginService
             {
                 if (reader.GetString("password") == password)
                 {
-                    ProgramController.user = new UserDto(reader.GetString("first_name"),
+                    ProgramController.user = new UserDto(reader.GetInt32("user_id"),reader.GetString("first_name"),
                         reader.GetString("last_name"), 
                         reader.GetString("email"),
                         reader.GetString("password"),

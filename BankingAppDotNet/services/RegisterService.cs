@@ -172,7 +172,7 @@ public class RegisterService
             {
                 registerOutcome = "registered";
                 RegisterUserInDatabase();
-                ProgramController.user = user;
+                ProgramController.user = GetUserByEmail(user.Email);
                 return registerOutcome;
             }
         }
@@ -243,13 +243,28 @@ public class RegisterService
         }
     }
 
-    private UserDto RegisterUserInDatabase()
+    private void RegisterUserInDatabase()
     {
-        UserDto registeredUser = user;
         string query =
             $"INSERT INTO users (first_name, last_name, email, password, date_of_birth) VALUES ('{user.FirstName}','{user.LastName}','{user.Email}','{user.Password}','{user.BirthDate}')";
         MySqlCommand cmd = new MySqlCommand(query, db.GetConnection());
         cmd.ExecuteNonQuery();
+        
+    }
+    
+    private UserDto GetUserByEmail(string email)
+    {
+        UserDto registeredUser = new UserDto();
+        string query = $"SELECT * FROM users WHERE email = '{email}'";
+        MySqlCommand cmd = new MySqlCommand(query, db.GetConnection());
+        using (MySqlDataReader reader = cmd.ExecuteReader())
+        {
+            while (reader.Read())
+            {
+                registeredUser = new UserDto(reader.GetInt32("user_id"), reader.GetString("first_name"), reader.GetString("last_name"), reader.GetString("email"), reader.GetString("password"), reader.GetString("date_of_birth"));
+            }
+        }
+
         return registeredUser;
     }
 
