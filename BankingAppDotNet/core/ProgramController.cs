@@ -1,4 +1,5 @@
-﻿using BankingAppDotNet.services;
+﻿using BankingAppDotNet.database_management;
+using BankingAppDotNet.services;
 using BankingAppDotNet.user_interface;
 
 namespace BankingAppDotNet.core;
@@ -17,7 +18,27 @@ public class ProgramController
         
         //todo rewrite these as separate methods with return types to allow for easier navigation through the application
 
-        // handle connection to database 
+        // handle connection to database
+        while(!DatabaseConfigSetup.VerifyConfigJson()){
+            
+            PrintDatabaseSetup("Enter server URL");
+            Console.Write("Server URL: ");
+            string serverURL = Console.ReadLine();
+            PrintDatabaseSetup("Enter server port");
+            Console.Write("Server port: ");
+            string serverPort = Console.ReadLine();
+            PrintDatabaseSetup("Enter database name/schema");
+            Console.Write("Database name: ");
+            string databaseName = Console.ReadLine();
+            PrintDatabaseSetup("Enter database username");
+            Console.Write("Database username: ");
+            string username = Console.ReadLine();
+            PrintDatabaseSetup("Enter database password");
+            Console.Write("Database password: ");
+            string password = Console.ReadLine();
+            
+            DatabaseConfigSetup.WriteConfigJson(serverURL, serverPort, databaseName, username, password);
+        }
         
         // if (WelcomeScreen() == "success")
         // {
@@ -69,6 +90,11 @@ public class ProgramController
             return false;
         }
         return true;
+    }
+
+    private void PrintDatabaseSetup(string message)
+    {
+        ui.PrintDisplay("It looks like you are performing first time setup.", "Please follow the instructions below.", message);
     }
 }
 

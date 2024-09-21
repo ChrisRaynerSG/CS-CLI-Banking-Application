@@ -41,7 +41,7 @@ public static class DatabaseConfigSetup
     public static string GetConnectionString()
     {
         var configuration = new ConfigurationBuilder().SetBasePath(AppContext.BaseDirectory)
-            .AddJsonFile("databasesettings.json").Build();
+            .AddJsonFile("databasesettings.json", optional:false).Build();
         
         string server = configuration["DatabaseServer"];
         string port = configuration["DatabasePort"];
