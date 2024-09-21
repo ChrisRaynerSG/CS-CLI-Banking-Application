@@ -25,16 +25,17 @@ public class AccountService
         return doesUserHaveAccount;
     }
 
-    public ArrayList<AccountDto> GetAllAccounts(UserDto user)
+    public ArrayList GetAllAccounts(UserDto user)
     {
-        ArrayList<AccountDto> accounts = new ArrayList();
+        ArrayList accounts = new ArrayList();
         databaseConnection.OpenConnection();
-        MySqlCommand command = new MySqlCommand($"SELECT account_number,banks.bank_code, account_types.account_type_name, balance FROM accounts JOIN account_types on accounts.account_type_id = account_types.account_type_id JOIN banks ON accounts.bank_id = banks.bank_id WHERE user_id = {user.Id}", databaseConnection.GetConnection());
+        MySqlCommand command = new MySqlCommand($"SELECT account_id, account_number,banks.bank_code, account_types.account_type_name, balance FROM accounts JOIN account_types on accounts.account_type_id = account_types.account_type_id JOIN banks ON accounts.bank_id = banks.bank_id WHERE user_id = {user.Id}", databaseConnection.GetConnection());
         using (MySqlDataReader reader = command.ExecuteReader())
         {
             while (reader.Read())
             {
-                AccountDto account = new AccountDto(reader.GetInt32(account_id), reader.GetInt32(bank_id), reader.GetDecimal(account_balance));
+                AccountDto account = new AccountDto(reader.GetInt32("account_id"), reader.GetString("bank_code"), reader.GetString("account_number"), reader.GetString("account_type_name"),reader.GetDecimal("balance"));
+                accounts.Add(account);
             }
         }
         databaseConnection.CloseConnection();
@@ -45,7 +46,7 @@ public class AccountService
     {
         databaseConnection.OpenConnection();
         decimal startingBalance = 0;
-        string query = $"INSERT INTO accounts (user_id, bank_id, account_type_id, account_number, balance, created_at) VALUES ({ProgramController.user.Id}, {bankId}, {accountTypeId},{GenerateAccountNumber()}, {startingBalance}, {DateTime.Now.Date}))";
+        string query = $"INSERT INTO accounts (user_id, bank_id, account_type_id, account_number, balance, created_at) VALUES ({ProgramController.user.Id}, {bankId}, {accountTypeId},{GenerateAccountNumber()}, {startingBalance}, {DateTime.Now.Date})";
         MySqlCommand command = new MySqlCommand(query, databaseConnection.GetConnection());
         databaseConnection.CloseConnection();
     }
