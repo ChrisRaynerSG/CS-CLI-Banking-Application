@@ -3,10 +3,10 @@
 public static class UserInterfaceComponents
 {
     
-    public const string TopLine =    "----------------------------------------------------------------------------------------------------------------------------------------------";
-    public const string AppName =    "|                                                          CRSG Banking Application                                                          |";
-    public const string BottomLine = "|____________________________________________________________________________________________________________________________________________|";
-    public const string MiddleLine = "|                                                                                                                                            |";
+    public const string TopLine =    "------------------------------------------------------------------------------------------------------------------------------------------------------------------";
+    public const string AppName =    "|                                                                    CRSG Banking Application                                                                    |";
+    public const string BottomLine = "|________________________________________________________________________________________________________________________________________________________________|";
+    public const string MiddleLine = "|                                                                                                                                                                |";
     
     public static string GetMessageString(string message)
     {
