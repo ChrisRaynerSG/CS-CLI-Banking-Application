@@ -55,6 +55,7 @@ public class AccountService
                 banks.Add(bank);
             }
         }
+        databaseConnection.CloseConnection();
         return banks;
     }
 

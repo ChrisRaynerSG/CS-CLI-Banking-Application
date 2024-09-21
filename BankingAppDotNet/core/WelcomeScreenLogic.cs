@@ -20,24 +20,18 @@ public bool doWelcomeScreenPath()
         while (response.ToLower() != "q" && response != "success")
         {
             PrintDisplay("Please select an option from the list below:", "Login (L)", "Register (R)", "Quit application (Q)");
-            Console.Write("Selection: ");
-            response = Console.ReadLine();
+            response = Console.ReadKey().KeyChar.ToString().ToLower();
             if (response.ToLower() == "l")
             {
                 if (login.Login() == "success")
                 {
-                    // response = "success";
                     return true;
-                    //todo store logged in user in memory
-                    //todo login to return a UserDto
                 }
             }
             else if (response.ToLower() == "r")
             {
                 if (register.Register() == "registered")
                 {
-                    //todo store newly registered user in memory
-                    //todo register to return a UserDto
                     return true;
                 }
             }

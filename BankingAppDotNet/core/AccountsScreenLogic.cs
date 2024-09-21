@@ -8,10 +8,12 @@ namespace BankingAppDotNet.core;
 public class AccountsScreenLogic : ConsoleScreen
 {
     private AccountService accountService;
+    private AccountCreationScreenLogic accountCreationScreenLogic;
 
     public AccountsScreenLogic()
     {
         accountService = new AccountService();
+        accountCreationScreenLogic = new AccountCreationScreenLogic();
     }
     
     public void doAccountsScreenPath()
@@ -23,15 +25,15 @@ public class AccountsScreenLogic : ConsoleScreen
         else
         {
             PrintDisplay($"Welcome {ProgramController.loggedInUser.FirstName} {ProgramController.loggedInUser.LastName}","You currently have no active accounts with us.","Set up new account (S)", "Go back (B)");
-            string userInput = Console.ReadKey().ToString().ToLower();
-            while (!userInput.ToLower().Equals("b") && !userInput.ToLower().Equals("s"))
+            string userInput = Console.ReadKey().KeyChar.ToString().ToLower();
+            while (userInput.ToLower()!="b" && userInput.ToLower() != "s")
             {
-                userInput = Console.ReadKey().ToString().ToLower();
+                userInput = Console.ReadKey().KeyChar.ToString().ToLower();
             }
 
-            if (!userInput.Equals("s"))
+            if (userInput == "s")
             {
-                //todo create new account
+                accountCreationScreenLogic.createNewAccountPath();
             }
         }
     }
