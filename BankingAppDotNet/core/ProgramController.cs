@@ -19,7 +19,34 @@ public class ProgramController
         //todo rewrite these as separate methods with return types to allow for easier navigation through the application
 
         // handle connection to database
-        while(!DatabaseConfigSetup.VerifyConfigJson()){
+        int counter = 0;
+        while(!DatabaseConfigSetup.VerifyConfigJson())
+        {
+            if (counter != 0)
+            {
+                ui.PrintDisplay("ERR: invalid credentials!", "Try again? (Y/N) ");
+                string userInput = Console.ReadKey().KeyChar.ToString();
+                while (userInput.ToLower() != "y" && userInput.ToLower() != "n")
+                {
+                    ui.PrintDisplay("ERR: invalid credentials!", "Try again? (Y/N) ");
+                    userInput = Console.ReadKey().KeyChar.ToString();
+                }
+
+                if (userInput.ToLower() == "n")
+                {
+                    ui.PrintDisplay("Shutting down.");
+                    Thread.Sleep(500);
+                    ui.PrintDisplay("Shutting down..");
+                    Thread.Sleep(500);
+                    ui.PrintDisplay("Shutting down...");
+                    Thread.Sleep(500);
+                    ui.PrintDisplay("Shutting down....");
+                    Thread.Sleep(500);
+                    return false;
+                }
+            }
+
+            counter++;
             
             PrintDatabaseSetup("Enter server URL");
             Console.Write("Server URL: ");

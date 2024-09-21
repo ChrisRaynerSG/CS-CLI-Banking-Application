@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 
 namespace BankingAppDotNet.database_management;
@@ -28,6 +29,9 @@ public static class DatabaseConfigSetup
         {
             DatabaseConnection dbc = new DatabaseConnection();
             dbc.OpenConnection();
+            string query = "SELECT * FROM banks";
+            MySqlCommand cmd = new MySqlCommand(query, dbc.GetConnection());
+            cmd.ExecuteReader();
             dbc.CloseConnection();
             return true;
         }
