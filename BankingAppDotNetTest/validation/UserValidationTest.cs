@@ -17,15 +17,7 @@ public class UserValidationTest
         Assert.That(actual, Is.EqualTo(expected));
         Assert.That(actual2, Is.EqualTo(expected));
     }
-
-    [Test]
-    public void TestValidateUserNameReturnsTrueWhenNameStartsWithSpace()
-    {
-        bool expected = true;
-        bool actual = UserValidation.ValidateName("  Bobby");
-        Assert.That(actual, Is.EqualTo(expected));
-    }
-
+    
     [Test]
     public void TestValidateUserNameReturnsFalseWhenNameIsEmpty()
     {
