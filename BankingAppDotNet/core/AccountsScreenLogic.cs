@@ -16,7 +16,7 @@ public class AccountsScreenLogic : ConsoleScreen
     
     public void doAccountsScreenPath()
     {
-        if (accountService.doesUserHaveAccounts(ProgramController.user))
+        if (accountService.DoesUserHaveAccounts(ProgramController.user))
         {
             
         }
