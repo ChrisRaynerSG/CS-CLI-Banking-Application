@@ -172,7 +172,7 @@ public class RegisterService
             {
                 registerOutcome = "registered";
                 RegisterUserInDatabase();
-                ProgramController.user = GetUserByEmail(user.Email);
+                ProgramController.loggedInUser = GetUserByEmail(user.Email);
                 return registerOutcome;
             }
         }

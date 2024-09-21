@@ -46,7 +46,7 @@ public class AccountService
     {
         databaseConnection.OpenConnection();
         decimal startingBalance = 0;
-        string query = $"INSERT INTO accounts (user_id, bank_id, account_type_id, account_number, balance, created_at) VALUES ({ProgramController.user.Id}, {bankId}, {accountTypeId},{GenerateAccountNumber()}, {startingBalance}, {DateTime.Now.Date})";
+        string query = $"INSERT INTO accounts (user_id, bank_id, account_type_id, account_number, balance, created_at) VALUES ({ProgramController.loggedInUser.Id}, {bankId}, {accountTypeId},{GenerateAccountNumber()}, {startingBalance}, {DateTime.Now.Date})";
         MySqlCommand command = new MySqlCommand(query, databaseConnection.GetConnection());
         databaseConnection.CloseConnection();
     }

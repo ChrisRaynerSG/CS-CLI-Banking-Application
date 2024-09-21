@@ -16,13 +16,13 @@ public class AccountsScreenLogic : ConsoleScreen
     
     public void doAccountsScreenPath()
     {
-        if (accountService.DoesUserHaveAccounts(ProgramController.user))
+        if (accountService.DoesUserHaveAccounts(ProgramController.loggedInUser))
         {
-            
+            accountService.GetAllAccounts(ProgramController.loggedInUser);
         }
         else
         {
-            PrintDisplay($"Welcome {ProgramController.user.FirstName} {ProgramController.user.LastName}","You currently have no active accounts with us.","Set up new account (S)", "Go back (B)");
+            PrintDisplay($"Welcome {ProgramController.loggedInUser.FirstName} {ProgramController.loggedInUser.LastName}","You currently have no active accounts with us.","Set up new account (S)", "Go back (B)");
             string userInput = Console.ReadKey().ToString().ToLower();
         }
     }

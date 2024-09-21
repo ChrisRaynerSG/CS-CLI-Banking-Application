@@ -66,6 +66,6 @@ public class LoggedInScreenLogic : ConsoleScreen
 
     private void PrintLoggedInScreen()
     {
-        PrintDisplay($"Welcome {ProgramController.user.FirstName} {ProgramController.user.LastName}!", "Please select one of the following options below:", "View accounts (A)", "View cards (C)","Make a transaction (T)", "Update information (U)", "Quit application (Q)");
+        PrintDisplay($"Welcome {ProgramController.loggedInUser.FirstName} {ProgramController.loggedInUser.LastName}!", "Please select one of the following options below:", "View accounts (A)", "View cards (C)","Make a transaction (T)", "Update information (U)", "Quit application (Q)");
     }
 }

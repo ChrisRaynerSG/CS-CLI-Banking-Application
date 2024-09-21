@@ -78,7 +78,7 @@ public class LoginService
                     DateTime date = reader.GetDateTime("date_of_birth");
                     string dateString = date.ToString("yyyy-MM-dd");
                     
-                    ProgramController.user = new UserDto(reader.GetInt32("user_id"),reader.GetString("first_name"),
+                    ProgramController.loggedInUser = new UserDto(reader.GetInt32("user_id"),reader.GetString("first_name"),
                         reader.GetString("last_name"), 
                         reader.GetString("email"),
                         reader.GetString("password"),

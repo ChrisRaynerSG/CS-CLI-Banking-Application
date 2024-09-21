@@ -4,7 +4,7 @@ namespace BankingAppDotNet.core;
 
 public class ProgramController
 {
-    public static UserDto user;
+    public static UserDto loggedInUser;
     private ProgramLogic pl;
     
     public ProgramController()
