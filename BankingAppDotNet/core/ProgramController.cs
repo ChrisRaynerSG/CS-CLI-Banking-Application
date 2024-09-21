@@ -25,7 +25,11 @@ public class ProgramController
         {
             return false;
         }
-        
+
+        if (pl.doLoggedInPath() == false)
+        {
+            return false;
+        } 
         // ui.PrintDisplay("Please select one of the following options", "View Accounts (A)", "View Cards (C)", "Make a transaction (T)", "Update Information (U)", "Quit application (Q)");
         // Console.Write("Selection: ");
         // response = Console.ReadLine();
