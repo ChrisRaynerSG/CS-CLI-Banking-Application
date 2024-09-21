@@ -1,4 +1,5 @@
-﻿using BankingAppDotNet.database_management;
+﻿using System.Globalization;
+using BankingAppDotNet.database_management;
 using BankingAppDotNet.dtos;
 using BankingAppDotNet.user_interface;
 using BankingAppDotNet.validation;
@@ -23,46 +24,44 @@ public class RegisterService
     public string Register()
     {
         string registerOutcome = string.Empty;
-     
-        //first name form
-        
-        RegistrationPrint();
-        Console.Write("Enter first name: ");
-        string firstName = Console.ReadLine();
-        
-        while (!UserValidation.ValidateName(firstName))
-        {
-            RegistrationPrintInvalid();
-            Console.Write("Enter first name: ");
-            firstName = Console.ReadLine();
-        }
-        user.FirstName = UserValidation.formatName(firstName);
-        
-        //lastName form
-        
-        RegistrationPrint();
-        Console.Write("Enter last name: ");
-        string lastName = Console.ReadLine();
 
-        while (!UserValidation.ValidateName(lastName))
+        while (registerOutcome != "registered")
         {
-            RegistrationPrintInvalid();
+            //first name form
+
+            RegistrationPrint();
+            Console.Write("Enter first name: ");
+            string firstName = Console.ReadLine();
+
+            while (!UserValidation.ValidateName(firstName))
+            {
+                RegistrationPrintInvalid();
+                Console.Write("Enter first name: ");
+                firstName = Console.ReadLine();
+            }
+
+            user.FirstName = UserValidation.formatName(firstName);
+
+            //lastName form
+
+            RegistrationPrint();
             Console.Write("Enter last name: ");
-            lastName = Console.ReadLine();
-        }
-        
-        user.LastName = UserValidation.formatName(lastName);
-        
-        //email form
-        RegistrationPrint();
-        Console.Write("Enter email: ");
-        string email = Console.ReadLine();
-        
-        while (!UserValidation.ValidateEmail(email))
-        {
-            RegistrationPrintInvalidEmail();
+            string lastName = Console.ReadLine();
+
+            while (!UserValidation.ValidateName(lastName))
+            {
+                RegistrationPrintInvalid();
+                Console.Write("Enter last name: ");
+                lastName = Console.ReadLine();
+            }
+
+            user.LastName = UserValidation.formatName(lastName);
+
+            //email form
+            RegistrationPrint();
             Console.Write("Enter email: ");
-            email = Console.ReadLine();
+            string email = Console.ReadLine();
+
             while (IsEmailTaken(email))
             {
                 RegistrationPrintEmailTaken(email);
@@ -74,58 +73,119 @@ public class RegisterService
                     Console.Write("Selection: ");
                     keypress = Console.ReadKey().KeyChar.ToString();
                 }
+
                 if (keypress.ToLower() == "l")
                 {
                     LoginService login = new LoginService();
                     if (login.Login() == "success")
                     {
                         registerOutcome = "success";
+                        return registerOutcome;
                     }
                 }
                 else if (keypress.ToLower() == "c")
                 {
-                 RegistrationPrint();
-                 Console.Write("Enter email: ");
-                 email = Console.ReadLine();
+                    RegistrationPrint();
+                    Console.Write("Enter email: ");
+                    email = Console.ReadLine();
                 }
             }
-        }
-        
-        user.Email = UserValidation.formatEmail(email);
-        
-        //password form
-        
-        RegistrationPrintPassword();
-        Console.Write("Enter password: ");
-        string password = Console.ReadLine();
 
-        while (!UserValidation.ValidatePassword(password))
-        {
-            RegistrationPrintPasswordInvalid();
+            while (!UserValidation.ValidateEmail(email))
+            {
+                RegistrationPrintInvalidEmail();
+                Console.Write("Enter email: ");
+                email = Console.ReadLine();
+                while (IsEmailTaken(email))
+                {
+                    RegistrationPrintEmailTaken(email);
+                    Console.Write("Selection: ");
+                    string keypress = Console.ReadKey().KeyChar.ToString();
+                    while (keypress.ToLower() != "l" && keypress.ToLower() != "c")
+                    {
+                        RegistrationPrintEmailTaken(email);
+                        Console.Write("Selection: ");
+                        keypress = Console.ReadKey().KeyChar.ToString();
+                    }
+
+                    if (keypress.ToLower() == "l")
+                    {
+                        LoginService login = new LoginService();
+                        if (login.Login() == "success")
+                        {
+                            registerOutcome = "success";
+                            return registerOutcome;
+                        }
+                    }
+                    else if (keypress.ToLower() == "c")
+                    {
+                        RegistrationPrint();
+                        Console.Write("Enter email: ");
+                        email = Console.ReadLine();
+                    }
+                }
+            }
+
+            user.Email = UserValidation.formatEmail(email);
+
+            //password form
+
+            RegistrationPrintPassword();
             Console.Write("Enter password: ");
-            password = Console.ReadLine();
-        }
-        user.Password = password;
-        
-        //DoB form
-        
-        RegistrationPrintDob();
-        Console.Write("Enter Date of birth: ");
-        string dateOfBirth = Console.ReadLine();
-        while (!UserValidation.ValidateDateOfBirth(dateOfBirth))
-        {
-            RegistrationPrintDobInvalid();
+            string password = Console.ReadLine();
+
+            while (!UserValidation.ValidatePassword(password))
+            {
+                RegistrationPrintPasswordInvalid();
+                Console.Write("Enter password: ");
+                password = Console.ReadLine();
+            }
+
+            user.Password = password;
+
+            //DoB form
+
+            RegistrationPrintDob();
             Console.Write("Enter Date of birth: ");
-            dateOfBirth = Console.ReadLine();
+            string dateOfBirth = Console.ReadLine();
+            while (!UserValidation.ValidateDateOfBirth(dateOfBirth))
+            {
+                RegistrationPrintDobInvalid();
+                Console.Write("Enter Date of birth: ");
+                dateOfBirth = Console.ReadLine();
+            }
+
+            string format = "yyyy-MM-dd";
+            DateOnly dateOfBirthDate = DateOnly.ParseExact(dateOfBirth, format, CultureInfo.InvariantCulture);
+            user.BirthDate = dateOfBirthDate;
+
+            PrintUserDetails();
+            Console.WriteLine("Register with these details? (Y/N)");
+            string isAcceptable;
+            isAcceptable = Console.ReadKey().KeyChar.ToString();
+            while (isAcceptable.ToLower() != "y" && isAcceptable.ToLower() != "n")
+            {
+                PrintUserDetails();
+                Console.WriteLine("Register with these details? (Y/N)");
+                isAcceptable = Console.ReadKey().KeyChar.ToString();
+            }
+
+            if (isAcceptable.ToLower() == "y")
+            {
+                registerOutcome = "registered";
+                RegisterUserInDatabase(dateOfBirth);
+                return registerOutcome;
+            }
         }
-        string format = "yyyy-MM-dd";
-        DateOnly dateOfBirthDate = DateOnly.ParseExact(dateOfBirth, format);
-        user.BirthDate = dateOfBirthDate;
-        
-        ui.PrintDisplay("Please make sure the following details are correct", $"First name: {user.FirstName}", $"Last name: {user.LastName}", $"Email: {user.Email}", $"Password: {user.Password}", $"Date of birth: {user.BirthDate.ToString()}");
-        Console.ReadLine();
-        
+
         return registerOutcome;
+    }
+
+    private void PrintUserDetails()
+    {
+        ui.PrintDisplay("Please make sure the following details are correct", $"First name: {user.FirstName}",
+            $"Last name: {user.LastName}", $"Email: {user.Email}", $"Password: {user.Password}",
+            $"Date of birth: {user.BirthDate.ToString()}");
     }
 
     private void RegistrationPrintPassword()
@@ -182,6 +242,16 @@ public class RegisterService
             reader.Close();
             return false;
         }
+    }
+
+    private UserDto RegisterUserInDatabase(string dateOfBirth)
+    {
+        UserDto registeredUser = user;
+        string query =
+            $"INSERT INTO users (first_name, last_name, email, password, date_of_birth) VALUES ('{user.FirstName}','{user.LastName}','{user.Email}','{user.Password}','{dateOfBirth}')";
+        MySqlCommand cmd = new MySqlCommand(query, db.GetConnection());
+        cmd.ExecuteNonQuery();
+        return registeredUser;
     }
 
     //todo firstName, lastName, email, password, DoB

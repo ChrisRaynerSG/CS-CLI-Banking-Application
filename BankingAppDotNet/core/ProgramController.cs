@@ -14,6 +14,18 @@ public class ProgramController
 
     public bool RunApplication()
     {
+        
+        //todo rewrite these as separate methods with return types to allow for easier navigation through the application
+
+        // if (WelcomeScreen() == "success")
+        // {
+        //     
+        // }
+        // else
+        // {
+        //     return false;
+        // }
+        
         LoginService login = new LoginService();
         
         string response = "n";
@@ -27,6 +39,7 @@ public class ProgramController
                 if (login.Login() == "success")
                 {
                     response = "success";
+                    //todo store logged in user in memory
                 }
             }
             else if (response.ToLower() == "r")
@@ -34,6 +47,7 @@ public class ProgramController
                 RegisterService register = new RegisterService();
                 response = register.Register();
                 //todo registration logic
+                //todo store newly registered user in memory
             }
         }
         if (response.ToLower() == "q")

@@ -15,12 +15,12 @@ public class LoginService
     public LoginService()
     {
         databaseConnection = new DatabaseConnection();
-        databaseConnection.OpenConnection();
         ui = new ConsoleScreen();
     }
 
     public string Login()
     {
+        databaseConnection.OpenConnection();
         ui.PrintDisplay("Please enter your credentials");
         Console.Write("Email: ");
         email = Console.ReadLine();
@@ -50,9 +50,11 @@ public class LoginService
             }
             else
             {
+                databaseConnection.CloseConnection();
                 return "return";
             }
         }
+        databaseConnection.CloseConnection();
         return "success";
     }
 
