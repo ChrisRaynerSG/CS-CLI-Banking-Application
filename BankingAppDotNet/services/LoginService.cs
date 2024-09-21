@@ -33,12 +33,12 @@ public class LoginService
         {
             ui.PrintDisplay("Invalid credentials");
             Console.Write("Try again? (Y/N) ");
-            string selection = Console.ReadLine();
+            string selection = Console.ReadKey().KeyChar.ToString().ToLower();
             while (selection.ToLower() != "y" && selection.ToLower() != "n")
             {
                 ui.PrintDisplay("Invalid input");
                 Console.Write("Try again? (Y/N) ");
-                selection = Console.ReadLine();
+                selection = Console.ReadKey().KeyChar.ToString().ToLower();
             }
 
             if (selection.ToLower() == "y")
