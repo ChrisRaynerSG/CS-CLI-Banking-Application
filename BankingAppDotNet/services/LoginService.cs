@@ -78,7 +78,7 @@ public class LoginService
                         reader.GetString("last_name"), 
                         reader.GetString("email"),
                         reader.GetString("password"),
-                        DateOnly.Parse(reader.GetString("date_of_birth")));
+                        reader.GetString("date_of_birth"));
                     
                     ui.PrintDisplay("Login successful!", "Welcome " + reader.GetString("first_name") + " " + reader.GetString("last_name") + "!");
                     Thread.Sleep(3000);

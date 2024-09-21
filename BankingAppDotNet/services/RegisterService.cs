@@ -155,10 +155,7 @@ public class RegisterService
                 Console.Write("Enter Date of birth: ");
                 dateOfBirth = Console.ReadLine();
             }
-
-            string format = "yyyy-MM-dd";
-            DateOnly dateOfBirthDate = DateOnly.ParseExact(dateOfBirth, format, CultureInfo.InvariantCulture);
-            user.BirthDate = dateOfBirthDate;
+            user.BirthDate = dateOfBirth;
 
             PrintUserDetails();
             Console.WriteLine("Register with these details? (Y/N)");
@@ -174,7 +171,7 @@ public class RegisterService
             if (isAcceptable.ToLower() == "y")
             {
                 registerOutcome = "registered";
-                RegisterUserInDatabase(dateOfBirth);
+                RegisterUserInDatabase();
                 ProgramController.user = user;
                 return registerOutcome;
             }
@@ -246,11 +243,11 @@ public class RegisterService
         }
     }
 
-    private UserDto RegisterUserInDatabase(string dateOfBirth)
+    private UserDto RegisterUserInDatabase()
     {
         UserDto registeredUser = user;
         string query =
-            $"INSERT INTO users (first_name, last_name, email, password, date_of_birth) VALUES ('{user.FirstName}','{user.LastName}','{user.Email}','{user.Password}','{dateOfBirth}')";
+            $"INSERT INTO users (first_name, last_name, email, password, date_of_birth) VALUES ('{user.FirstName}','{user.LastName}','{user.Email}','{user.Password}','{user.BirthDate}')";
         MySqlCommand cmd = new MySqlCommand(query, db.GetConnection());
         cmd.ExecuteNonQuery();
         return registeredUser;

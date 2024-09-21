@@ -26,8 +26,8 @@ public class ProgramLogic
         return welcomeScreenLogic.doWelcomeScreenPath();
     }
 
-    public bool doLoggedInPath(UserDto user)
+    public bool doLoggedInPath()
     {
-        return loggedInScreenLogic.doLoggedInScreenPath(user);
+        return loggedInScreenLogic.doLoggedInScreenPath();
     }
 }

@@ -6,9 +6,9 @@ namespace BankingAppDotNet.core;
 public class LoggedInScreenLogic : ConsoleScreen
 {
 
-    public bool doLoggedInScreenPath(UserDto user)
+    public bool doLoggedInScreenPath()
     {
-        PrintDisplay($"Welcome {user.FirstName} {user.LastName}!", "Please select one of the following options below:", "View accounts (A)", "View cards (C)","Make a transaction (T)", "Update information (U)", "Quit application (Q)");
+        PrintDisplay($"Welcome {ProgramController.user.FirstName} {ProgramController.user.LastName}!", "Please select one of the following options below:", "View accounts (A)", "View cards (C)","Make a transaction (T)", "Update information (U)", "Quit application (Q)");
         string userInput = Console.ReadKey().KeyChar.ToString().ToLower();
 
         while (userInput != "q" && userInput != "a" && userInput != "c" && userInput != "u" && userInput != "t")

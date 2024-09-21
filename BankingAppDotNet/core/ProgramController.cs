@@ -23,7 +23,7 @@ public class ProgramController
             return false; //make welcomeScreenPath return userDto? If empty return false?
         }
 
-        if (pl.doLoggedInPath(user) == false)
+        if (pl.doLoggedInPath() == false)
         {
             return false;
         } 

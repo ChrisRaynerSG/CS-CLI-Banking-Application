@@ -6,9 +6,9 @@ public class UserDto
     public string LastName { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
-    public DateOnly BirthDate { get; set; }
+    public string BirthDate { get; set; }
 
-    public UserDto(string firstName, string lastName, string email, string password, DateOnly birthDate)
+    public UserDto(string firstName, string lastName, string email, string password, string birthDate)
     {
         FirstName = firstName;
         LastName = lastName;
