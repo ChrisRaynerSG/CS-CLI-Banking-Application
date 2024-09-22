@@ -27,13 +27,78 @@ public class AccountCreationScreenLogic : ConsoleScreen
         for(int i = 0; i < banks.Count; i++)
         {
             BankDto bank = (BankDto)banks[i];
-            display = UserInterfaceComponents.GetBankTableRowString($"({i + 1})",$"{bank.bankName}",$"{bank.bankCode}",$"{bank.address1}", $"{bank.address2}", $"{bank.address3}", $"{bank.city}");
+            string selection = (i%5 +1).ToString();
+            display = UserInterfaceComponents.GetBankTableRowString($"({selection})",$"{bank.bankName}",$"{bank.bankCode}",$"{bank.address1}", $"{bank.address2}", $"{bank.address3}", $"{bank.city}");
             output.Add(display);
         }
+        
         int numberOfPages = Convert.ToInt32(Math.Ceiling((double)banks.Count / 5));
+        int numberOfBanksOnLastPage = banks.Count % 5;
+        int currentPage = 1;
 
-        PrintDisplay("Please select a bank: ",output[0], output[1], output[2], output[3], output[4], output[5], "Go back (B) | Go to next page (N)");
-        string test = Console.ReadLine();
+        PrintDisplay("Please select a bank: ",output[0], output[1], output[2], output[3], output[4], output[5], "Go back (B) | Next page (N)");
+        string userInput = Console.ReadKey().KeyChar.ToString().ToLower();
+        while (userInput.ToLower() != "b" && userInput.ToLower() != "n" && userInput.ToLower() != "1" &&
+               userInput.ToLower() != "2" && userInput.ToLower() != "3" && userInput.ToLower() != "4" &&
+               userInput.ToLower() != "5")
+        {
+            userInput = Console.ReadKey().KeyChar.ToString().ToLower();
+        }
+
+        while (userInput.ToLower() != "b")
+        {
+            if (userInput.ToLower() == "n")
+            {
+                currentPage++;
+                if (currentPage == numberOfPages)
+                {
+                    //todo logic to determine how many banks to display based on number of banks on last page
+                    if (numberOfBanksOnLastPage == 1)
+                    {
+                        PrintDisplay("Please select a bank: ",output[0], output[(numberOfPages-1)*5+1], "", "", "", "", "Go back (B) | Previous page (P)");
+                        userInput = Console.ReadKey().KeyChar.ToString().ToLower();
+                        while (userInput.ToLower() != "b" && userInput.ToLower() != "p" && userInput.ToLower() != "1" &&
+                               userInput.ToLower() != "2" && userInput.ToLower() != "3" && userInput.ToLower() != "4" &&
+                               userInput.ToLower() != "5")
+                        {
+                            userInput = Console.ReadKey().KeyChar.ToString().ToLower();
+                        }
+
+                        if (userInput.ToLower() == "p")
+                        {
+                            currentPage--;
+                            PrintDisplay("Please select a bank: ",output[0], output[currentPage*5], output[2], output[3], output[4], output[5], "Go back (B) | Next page (N)");
+                            userInput = Console.ReadKey().KeyChar.ToString().ToLower();
+                        }
+                    }
+                    else if (numberOfBanksOnLastPage == 2)
+                    {
+                        PrintDisplay("Please select a bank: ",output[0], output[numberOfPages*5], output[numberOfPages*5+1], "", "", "", "Go back (B) | Previous page (P)");
+                        userInput = Console.ReadKey().KeyChar.ToString().ToLower();
+                    }
+                    else if (numberOfBanksOnLastPage == 3)
+                    {
+                        PrintDisplay("Please select a bank: ",output[0], output[numberOfPages*5], output[numberOfPages*5+1], output[numberOfPages*5+2], "", "", "Go back (B) | Previous page (P)");
+                        userInput = Console.ReadKey().KeyChar.ToString().ToLower();
+                    }
+                    else if (numberOfBanksOnLastPage == 2)
+                    {
+                        PrintDisplay("Please select a bank: ",output[0], output[numberOfPages*5], output[numberOfPages*5+1], output[numberOfPages*5+2], output[numberOfPages*5+3], "", "Go back (B) | Previous page (P)");
+                        userInput = Console.ReadKey().KeyChar.ToString().ToLower();
+                    }
+                    else
+                    {
+                        PrintDisplay("Please select a bank: ",output[0], output[numberOfPages*5], output[numberOfPages*5+1], output[numberOfPages*5+2], output[numberOfPages*5+3], output[numberOfPages*5+4], "Go back (B) | Previous page (P)");
+                        userInput = Console.ReadKey().KeyChar.ToString().ToLower();
+                    }
+                   
+                }
+                else
+                {
+                    PrintDisplay("Please select a bank: ",output[0], output[1], output[2], output[3], output[4], output[5], "Go back (B) | Next page (N) | Previous page (P)");
+                }
+            }
+        }
 
 
 
